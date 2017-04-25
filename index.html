@@ -3,51 +3,44 @@
   <head>
     <meta charset="utf-8" /> 
   	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-  	<title> Signup </title>
-  	<link rel="stylesheet" href="css/styles.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
-	<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-auth.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-database.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-storage.js"></script>
-	<script src="javascript/signup.min.js"></script>
+  	<title> Sign Up </title>
   </head>
   
   <body>
     <!-- Top Header --> 
     <header class = "topbar">
-      <h1>LeagueDex</h1>
-      <a href="index.html" > Home </a>
-      <a href="login.html" id = "inout"> Log In </a>
-      <a href="signup.html" id = "status"> Sign Up </a>
+      <a href="login.html"> Log In </a>
       <hr>
     </header>
-    
-    <!-- Hero Image -->
-    <div style = "text-align: center; ">
-      <img src="league.jpg" alt="banner" >
-    </div>
 	
     <!-- Main Section -->
-	<section style = "text-align: left; display: flex;justify-content: center; align-items: center;">
+	<div style = "text-align: left; display: flex;justify-content: center; align-items: center;">
 	  <div style = "display: table;" method = "POST">
 	    <h4 style = "display: table-row;">
-          <label>Email:</label>  
-          <input type = "text" name = "email" id = "email">
+          <label>Name:</label>  
+          <input type = "text" name = "name" id = "name">
         </h4><br>
 		<h4 style = "display: table-row;">
-          <label>Password:</label>  
-          <input type = "password" name = "password" id = "password">
+			<div class="dropdown">
+				<button id = "role">Role:</button>
+				<div id = "myRole">
+					<a>Owner</a>
+					<a>Customer</a>
+				</div>
+			</div>
         </h4><br>
 		<h4 style = "display: table-row;">
-          <label>Confirm Password:</label> 
-          <input type = "password" name = "confirm" id = "confirm">
+          <label>Age:</label>  
+          <input type = "text" name = "age" id = "age">
         </h4><br>
-		<button id = "signup">Signup </button><br><br>
-		<button id = "google">Or sign up and log in with your google account</button> 
+		<h4 style = "display: table-row;">
+          <label>State:</label> 
+          <input type = "text" name = "state" id = "state">
+        </h4><br>
+		<button id = "signup">Sign Up for an account</button><br><br>
+		<button id = "login">Log In if you already have an account</button> 
 	  </div>
-	</section>
+	</div>
   </body>
 
 </html>

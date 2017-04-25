@@ -1,53 +1,17 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
   <head>
     <meta charset="utf-8" /> 
-  	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-  	<title> Signup </title>
-  	<link rel="stylesheet" href="css/styles.css">
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
-	<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-auth.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-database.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-storage.js"></script>
-	<script src="javascript/signup.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Confirmation</title>
   </head>
-  
   <body>
-    <!-- Top Header --> 
+    <!-- Top Header -->
     <header class = "topbar">
-      <h1>LeagueDex</h1>
-      <a href="index.html" > Home </a>
-      <a href="login.html" id = "inout"> Log In </a>
-      <a href="signup.html" id = "status"> Sign Up </a>
+      <h1>Confirmation</h1>
+	  <a href="browsing.html"> Products Browsing </a><br>
       <hr>
     </header>
-    
-    <!-- Hero Image -->
-    <div style = "text-align: center; ">
-      <img src="league.jpg" alt="banner" >
-    </div>
-	
-    <!-- Main Section -->
-	<section style = "text-align: left; display: flex;justify-content: center; align-items: center;">
-	  <div style = "display: table;" method = "POST">
-	    <h4 style = "display: table-row;">
-          <label>Email:</label>  
-          <input type = "text" name = "email" id = "email">
-        </h4><br>
-		<h4 style = "display: table-row;">
-          <label>Password:</label>  
-          <input type = "password" name = "password" id = "password">
-        </h4><br>
-		<h4 style = "display: table-row;">
-          <label>Confirm Password:</label> 
-          <input type = "password" name = "confirm" id = "confirm">
-        </h4><br>
-		<button id = "signup">Signup </button><br><br>
-		<button id = "google">Or sign up and log in with your google account</button> 
-	  </div>
-	</section>
-  </body>
 
+  </body>
 </html>

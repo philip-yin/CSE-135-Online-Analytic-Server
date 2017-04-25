@@ -4,42 +4,17 @@
     <meta charset="utf-8" /> 
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Login</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-storage.js"></script>
-    <script src="javascript/login.min.js"></script>
   </head>
   <body>
-    <!-- Top Header -->
-    <header class = "topbar">
-      <h1>LeagueDex</h1>
-      <a href="index.html"> Home </a>
-      <a href="login.html" id = "inout"> Log In</a>
-      <a href="signup.html" id = "status"> Sign Up</a> 
-      <hr>
-    </header>
-    
-    <!-- Hero Image -->
-    <div style = "text-align: center; ">
-      <img src="league.jpg" alt="banner" >
-    </div>
 
-     <!-- Main Section -->
+    <!-- Main Section -->
     <section style = "text-align: left; display: flex;justify-content: center;align-items: center;">
       <div style = "display: table; " method = "post">
         <h4 style = "display: table-row;">
-          <label>Email:</label>   
+          <label>Name: </label>   
           <input type="text" name="username" id = "email">
         </h4><br/>
-        <h4 style = "display: table-row;">
-          <label>Password:</label>   
-          <input type="password" name="password" id = "password">
-        </h4><br>
         <button id = "login"> Login </button><br/><br/>
-        <button id = "google">Or sign up and log in with your google account</button>
       </div>
     </section>
     

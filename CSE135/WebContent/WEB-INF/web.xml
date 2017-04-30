@@ -6,17 +6,17 @@
   </welcome-file-list>
   
   <description>
-		Multiplies times 3, using JSP
+		CSE 135 project.
   </description>
  	
   <servlet>
-		<servlet-name>multiplier</servlet-name>
-		<jsp-file>/multiplyJSP.jsp</jsp-file>
+		<servlet-name>signup</servlet-name>
+		<jsp-file>/signup.jsp</jsp-file>
   </servlet>
 
   <servlet-mapping>
-		<servlet-name>multiplier</servlet-name>
-		<url-pattern>/multiply</url-pattern>
+		<servlet-name>signup</servlet-name>
+		<url-pattern>/index</url-pattern>
   </servlet-mapping>
   
 </web-app>

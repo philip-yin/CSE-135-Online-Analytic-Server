@@ -8,7 +8,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="D:/project/postgresql jdbc/postgresql-42.0.0.jar"/>
 	<classpathentry kind="lib" path="D:/project/tomcat/lib/annotations-api.jar"/>
 	<classpathentry kind="lib" path="D:/project/tomcat/lib/catalina.jar"/>
 	<classpathentry kind="lib" path="D:/project/tomcat/lib/catalina-ant.jar"/>
@@ -21,7 +20,6 @@
 	<classpathentry kind="lib" path="D:/project/tomcat/lib/jasper-el.jar"/>
 	<classpathentry kind="lib" path="D:/project/tomcat/lib/jaspic-api.jar"/>
 	<classpathentry kind="lib" path="D:/project/tomcat/lib/jsp-api.jar"/>
-	<classpathentry kind="lib" path="D:/project/tomcat/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="D:/project/tomcat/lib/tomcat-api.jar"/>
 	<classpathentry kind="lib" path="D:/project/tomcat/lib/tomcat-coyote.jar"/>
 	<classpathentry kind="lib" path="D:/project/tomcat/lib/tomcat-dbcp.jar"/>
@@ -34,5 +32,7 @@
 	<classpathentry kind="lib" path="D:/project/tomcat/lib/tomcat-util-scan.jar"/>
 	<classpathentry kind="lib" path="D:/project/tomcat/lib/tomcat-websocket.jar"/>
 	<classpathentry kind="lib" path="D:/project/tomcat/lib/websocket-api.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/postgresql-42.0.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

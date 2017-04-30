@@ -1,11 +1,13 @@
 function updateRole(){
 	var newRole = this.innerHTML;
 	document.getElementById('role').innerHTML = newRole;
+	document.getElementById('myrole').setAttribute("value", newRole);
 }
 
 function updateState(newState){
 	var newState = this.innerHTML;
 	document.getElementById('state').innerHTML = newState;
+	document.getElementById('mystate').setAttribute("value", newState);
 }
 
 

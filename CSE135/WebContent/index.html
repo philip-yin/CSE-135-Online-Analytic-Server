@@ -11,95 +11,89 @@
   </head>
   
   <body>
-    <!-- Top Header --> 
-    <header class = "topbar">
-	  <h1>Sign Up</h1>
-      <a href="login.html"> Log In </a>
-      <hr>
-    </header>
+	<br>
+	<br>
 	
     <!-- Main Section -->
 	<div style = "text-align: left; display: flex;justify-content: center; align-items: center;">
-	  <div>
-	    <h4>
-			<label>Name:</label>  
-			<input type = "text" name = "name" id = "name">
-        </h4><br>
-		<h4>
-			<div class="dropdown">
-				<label>Role:</label>
-				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color: white; color: black;" id="role">choose role</button>
-				<ul class="dropdown-menu">
-					<li><a class="myRole">Owner</a></li>
-					<li><a class="myRole">Customer</a></li>
-				</ul>
-			</div>
-        </h4><br>
-		<h4>
-          <label>Age:</label>  
-          <input type = "text" name = "age" id = "age">
-        </h4><br>
-		<h4>
-			<div class="dropdown">
-				<label>State:</label>
-				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color: white; color: black;" id="state">choose state</button>
-				<ul class="dropdown-menu">
-					<li><a class="myState">Alabama</a></li>
-					<li><a class="myState">Alaska</a></li>
-					<li><a class="myState">Arizona</a></li>
-					<li><a class="myState">Arkansas</a></li>
-					<li><a class="myState">California</a></li>
-					<li><a class="myState">Colorado</a></li>
-					<li><a class="myState">Connecticut</a></li>
-					<li><a class="myState">Delaware</a></li>
-					<li><a class="myState">Florida</a></li>
-					<li><a class="myState">Georgia</a></li>
-					<li><a class="myState">Hawaii</a></li>
-					<li><a class="myState">Idaho</a></li>
-					<li><a class="myState">Illinois</a></li>
-					<li><a class="myState">Indiana</a></li>
-					<li><a class="myState">Iowa</a></li>
-					<li><a class="myState">Kansas</a></li>
-					<li><a class="myState">Kentucky</a></li>
-					<li><a class="myState">Louisiana</a></li>
-					<li><a class="myState">Maine</a></li>
-					<li><a class="myState">Maryland</a></li>
-					<li><a class="myState">Massachusetts</a></li>
-					<li><a class="myState">Michigan</a></li>
-					<li><a class="myState">Minnesota</a></li>
-					<li><a class="myState">Mississippi</a></li>
-					<li><a class="myState">Missouri</a></li>
-					<li><a class="myState">Montana</a></li>
-					<li><a class="myState">Nebraska</a></li>
-					<li><a class="myState">Nevada</a></li>
-					<li><a class="myState">New Hampshire</a></li>
-					<li><a class="myState">New Jersey</a></li>
-					<li><a class="myState">New Mexico</a></li>
-					<li><a class="myState">New York</a></li>
-					<li><a class="myState">North Carolina</a></li>
-					<li><a class="myState">North Dakota</a></li>
-					<li><a class="myState">Ohio</a></li>
-					<li><a class="myState">Oklahoma</a></li>
-					<li><a class="myState">Oregon</a></li>
-					<li><a class="myState">Pennsylvania</a></li>
-					<li><a class="myState">Rhode Island</a></li>
-					<li><a class="myState">South Carolina</a></li>
-					<li><a class="myState">South Dakota</a></li>
-					<li><a class="myState">Tennessee</a></li>
-					<li><a class="myState">Texas</a></li>
-					<li><a class="myState">Utah</a></li>
-					<li><a class="myState">Vermont</a></li>
-					<li><a class="myState">Virginia</a></li>
-					<li><a class="myState">Washington</a></li>
-					<li><a class="myState">West Virginia</a></li>
-					<li><a class="myState">Wisconsin</a></li>
-					<li><a class="myState">Wyoming</a></li>
-				</ul>
-			</div>
-        </h4><br>
-		<button id = "signup">Sign Up for an account</button><br><br>
-		<button id = "login">Log In if you already have an account</button> 
-	  </div>
+	  <form method = "POST" action = "signup.jsp">
+		<label>Name:</label>  
+		<input type = "text" name = "name"/>
+        <br><br>
+        <input type ="hidden" id ="myrole" name="role"/>
+		<div class="dropdown">
+			<label>Role:</label>
+			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color: white; color: black;" id="role">choose role</button>
+			<ul class="dropdown-menu">
+				<li><a class="myRole">Owner</a></li>
+				<li><a class="myRole">Customer</a></li>
+			</ul>
+		</div>
+        <br>
+        <label>Age:</label>  
+        <input type = "text" name = "age"/>
+        <br><br>
+        <input type="hidden" id="mystate" name="state"/>
+		<div class="dropdown">
+			<label>State:</label>
+			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color: white; color: black;" id="state">choose state</button>
+			<ul class="dropdown-menu">
+				<li><a class="myState">Alabama</a></li>
+				<li><a class="myState">Alaska</a></li>
+				<li><a class="myState">Arizona</a></li>
+				<li><a class="myState">Arkansas</a></li>
+				<li><a class="myState">California</a></li>
+				<li><a class="myState">Colorado</a></li>
+				<li><a class="myState">Connecticut</a></li>
+				<li><a class="myState">Delaware</a></li>
+				<li><a class="myState">Florida</a></li>
+				<li><a class="myState">Georgia</a></li>
+				<li><a class="myState">Hawaii</a></li>
+				<li><a class="myState">Idaho</a></li>
+				<li><a class="myState">Illinois</a></li>
+				<li><a class="myState">Indiana</a></li>
+				<li><a class="myState">Iowa</a></li>
+				<li><a class="myState">Kansas</a></li>
+				<li><a class="myState">Kentucky</a></li>
+				<li><a class="myState">Louisiana</a></li>
+				<li><a class="myState">Maine</a></li>
+				<li><a class="myState">Maryland</a></li>
+				<li><a class="myState">Massachusetts</a></li>
+				<li><a class="myState">Michigan</a></li>
+				<li><a class="myState">Minnesota</a></li>
+				<li><a class="myState">Mississippi</a></li>
+				<li><a class="myState">Missouri</a></li>
+				<li><a class="myState">Montana</a></li>
+				<li><a class="myState">Nebraska</a></li>
+				<li><a class="myState">Nevada</a></li>
+				<li><a class="myState">New Hampshire</a></li>
+				<li><a class="myState">New Jersey</a></li>
+				<li><a class="myState">New Mexico</a></li>
+				<li><a class="myState">New York</a></li>
+				<li><a class="myState">North Carolina</a></li>
+				<li><a class="myState">North Dakota</a></li>
+				<li><a class="myState">Ohio</a></li>
+				<li><a class="myState">Oklahoma</a></li>
+				<li><a class="myState">Oregon</a></li>
+				<li><a class="myState">Pennsylvania</a></li>
+				<li><a class="myState">Rhode Island</a></li>
+				<li><a class="myState">South Carolina</a></li>
+				<li><a class="myState">South Dakota</a></li>
+				<li><a class="myState">Tennessee</a></li>
+				<li><a class="myState">Texas</a></li>
+				<li><a class="myState">Utah</a></li>
+				<li><a class="myState">Vermont</a></li>
+				<li><a class="myState">Virginia</a></li>
+				<li><a class="myState">Washington</a></li>
+				<li><a class="myState">West Virginia</a></li>
+				<li><a class="myState">Wisconsin</a></li>
+				<li><a class="myState">Wyoming</a></li>
+			</ul>
+		</div>
+        <br>
+		<input id = "signup" type = "submit" value="Sign Up for an account"/><br><br>
+		<a href="login.html">Log In if you already have an account</a> 
+	  </form>
 	</div>
   </body>
 

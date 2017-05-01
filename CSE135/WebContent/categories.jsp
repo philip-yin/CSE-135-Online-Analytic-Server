@@ -66,6 +66,25 @@
 	  					</form>
       					<hr>
    					</header>
+					<p> all categories: <p>
+					<%
+					rs = stmt.executeQuery("SELECT * FROM CATEGORY");
+	
+					while(rs.next()){
+						String cat_name = rs.getString("name");
+						String cat_des = rs.getString("description");
+						%>
+						<div>
+							<input type="text" value="<%=cat_name%>" readonly/>
+							<textarea rows="4" cols="50" style="margin-left: 150px; margin-top: 30px;"readonly><%=cat_des %></textarea>
+						</div>
+						<%
+					}
+					%>
+					<br><br>
+					<button>Insert</button>
+					<button>Delete</button>
+					<button>Update</button>
 					<%
 				}
 				else{

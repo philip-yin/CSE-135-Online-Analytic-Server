@@ -17,6 +17,23 @@
 					"jdbc:postgresql://localhost/postgres?" +
 					"user=postgres&password=cse135");
 			%>
+			<%
+				// Create the statement
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery("SELECT * FROM category");
+			%>
+			<form method="GET" action="product.jsp">
+				<input type="hidden" name="category" />
+			</form>
+			
+			<% while ( rs.next() ) { %>
+				<a href="product.jsp?category=<%=rs.getString("name")%>"><%=rs.getString("name")%><a><p> 
+			<% } %>
+			
+			<%
+				String category = request.getParameter("category");
+				session.setAttribute("category", category);
+			%>
 			<form method="GET" action="product.jsp">
 				Search Product: <input type="text" size="20" name="item"/><p />
 				<input type="submit" value="Search"/>
@@ -24,9 +41,11 @@
 			<%
 				String item = request.getParameter("item");
 				session.setAttribute("item", item);
-				// Create the statement
-				stmt = conn.createStatement();
-				if (item != "") {
+				if (category != "" && category != null) {
+					rs = stmt.executeQuery("SELECT * FROM product WHERE cat='" + category + "'"); %>
+					Filtering by: <%= category %> <p>
+				<% }
+				if (item != "" && item != null) {
 					rs = stmt.executeQuery("SELECT * FROM product WHERE name LIKE '%" + item + "%'"); %>
 					Filtering by: <%= item %> <p>
 				<% } else {

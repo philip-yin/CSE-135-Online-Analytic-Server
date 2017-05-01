@@ -8,11 +8,14 @@
   <body>
     <!-- Main Section -->
     <div style = "text-align: left; display: flex;justify-content: center;align-items: center;">
-		<h4>
-		<label>Name: </label>   
-		<input type="text" name="name" id = "name">
-        </h4><br/>
-        <button id = "login"> Login </button><br/><br/>
+    	<form method="GET" action = "login.jsp">
+    		<br>
+			<label>Name: </label>   
+			<input type="text" name="login_name" id = "name">	
+	        <br>
+	        <br>
+    	    <input type="submit" id="login" value="Log In"/>
+		</form>
     </div>    
  </body>
 </html>

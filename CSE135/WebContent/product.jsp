@@ -6,6 +6,12 @@
 			<%-- Import the java.sql package --%>
 			<%@ page import="java.sql.*" %>
 			<%
+				String category = request.getParameter("category");
+				session.setAttribute("category", category);
+				String item = request.getParameter("item");
+				session.setAttribute("item", item);
+			%>
+			<%
 				Connection conn;
 				Statement stmt;
 				ResultSet rs;
@@ -22,30 +28,27 @@
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery("SELECT * FROM category");
 			%>
-			<form method="GET" action="product.jsp">
-				<input type="hidden" name="category" />
-			</form>
-			
 			<% while ( rs.next() ) { %>
-				<a href="product.jsp?category=<%=rs.getString("name")%>"><%=rs.getString("name")%><a><p> 
+				<form method="GET" action="product.jsp">
+					<input type="hidden" name="category" value="<%=rs.getString("name")%>"/>
+					<input type="submit" value="<%=rs.getString("name")%>"> <p>
+				</form>
 			<% } %>
 			
-			<%
-				String category = request.getParameter("category");
-				session.setAttribute("category", category);
-			%>
 			<form method="GET" action="product.jsp">
-				Search Product: <input type="text" size="20" name="item"/><p />
+				Search Product: <input type="text" size="20" name="item"/> <p>
 				<input type="submit" value="Search"/>
 			</form>
 			<%
-				String item = request.getParameter("item");
-				session.setAttribute("item", item);
-				if (category != "" && category != null) {
+				if (category != "" && category != null && item != "" && item != null) {
+					rs = stmt.executeQuery("SELECT * FROM product WHERE cat='" + category + "' AND name LIKE '%" + item + "%'"); %>
+					Filtering by: <%= category %> and <%= item %> <p>
+				<% }
+				else if (category != "" && category != null) {
 					rs = stmt.executeQuery("SELECT * FROM product WHERE cat='" + category + "'"); %>
 					Filtering by: <%= category %> <p>
 				<% }
-				if (item != "" && item != null) {
+				else if (item != "" && item != null) {
 					rs = stmt.executeQuery("SELECT * FROM product WHERE name LIKE '%" + item + "%'"); %>
 					Filtering by: <%= item %> <p>
 				<% } else {

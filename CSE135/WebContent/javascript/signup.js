@@ -4,7 +4,7 @@ function updateRole(){
 	document.getElementById('myrole').setAttribute("value", newRole);
 }
 
-function updateState(newState){
+function updateState(){
 	var newState = this.innerHTML;
 	document.getElementById('state').innerHTML = newState;
 	document.getElementById('mystate').setAttribute("value", newState);

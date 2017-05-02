@@ -1,5 +1,5 @@
 <html>
-	<head><title>Products</title></head>
+	<head><title>Product Browsing</title></head>
 	<body><table><tr>
 		<td></td>
 		<td>
@@ -23,30 +23,19 @@
 					"user=postgres&password=cse135");
 			%>
 			<%
-				String add = request.getParameter("add");
-				if (add != null && add.equals("insert")) {
-					pstmt = conn.prepareStatement("INSERT INTO product VALUES (?, ?, ?, ?)");
-					pstmt.setString(1, request.getParameter("item_sku"));
-					pstmt.setString(2, request.getParameter("item_name"));
-					pstmt.setInt(3, Integer.parseInt(request.getParameter("item_price")));
-					pstmt.setString(4, request.getParameter("item_cat"));
-					pstmt.executeUpdate();
-				}
-			%>
-			<%
 				// Create the statement
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery("SELECT * FROM category");
 			%>
-			<a href="product.jsp">All Products<a><p>
+			<a href="productbrowsing.jsp">All Products<a><p>
 			<% while ( rs.next() ) { %>
-				<form method="GET" action="product.jsp" >
+				<form method="GET" action="productbrowsing.jsp" >
 					<input type="hidden" name="category" value="<%=rs.getString("name")%>"/>
 					<input type="submit" style="border: none" value="<%=rs.getString("name")%>"> <p>
 				</form>
 			<% } %>
 			
-			<form method="GET" action="product.jsp">
+			<form method="GET" action="productbrowsing.jsp">
 				Search Product: <input type="text" size="20" name="item"/> <p>
 				<input type="submit" value="Search"/>
 			</form>
@@ -79,23 +68,17 @@
 					<th>Price</th>
 					<th>Category</th>
 				</tr>
-				<tr>
-					<form action="product.jsp" method=”POST">
-						<input type="hidden" name="add" value="insert"/>
-						<th><input value="" name="item_sku" size="15"/></th>
-						<th><input value="" name="item_name" size="15"/></th>
-						<th><input value="" name="item_price" size="15"/></th>
-						<th><input value="" name="item_cat" size="15"/></th>
-						<th><input type="submit" value="Insert"/></th>
-					</form>
-				</tr>
 				<%-- Iterate over the ResultSet --%>
 				<% while ( rs.next() ) { %>
 					<tr>
-						<td><%=rs.getString("sku")%></td>
+						<td><%=rs.getString("sku")%></td> 
 						<td><%=rs.getString("name")%></td>
 						<td><%=rs.getInt("price")%></td>
 						<td><%=rs.getString("cat")%></td>
+						<td><form method="GET" action="productorder.jsp">
+							<input type="submit" value="Order"/>
+							<input type="hidden" name="order_item" value=<%=rs.getString("sku")%> />
+						</form></td>
 					</tr>
 				<% } %>
 			</table>

@@ -135,9 +135,14 @@
 							<td><input value="<%=rs.getString("name")%>" name="item_name"/></td>
 							<td><input value="<%=rs.getInt("price")%>" name="item_price"/></td>
 							<td><select name="item_cat">
-								<% while (rscat.next() ) { %>
-									<option value="<%=rscat.getString("name")%>"><%=rscat.getString("name")%></option>
-								<% } %>
+								<% while (rscat.next() ) { 
+									if (rs.getString("cat").equals(rscat.getString("name"))) { %>
+										<option value="<%=rscat.getString("name")%>" selected><%=rscat.getString("name")%></option>
+									<% }
+									else { %>
+										<option value="<%=rscat.getString("name")%>"><%=rscat.getString("name")%></option>
+									<% }
+								} %>
 							</select></td>
 							<td><input type="submit" value="Update"></td>
 						</form>

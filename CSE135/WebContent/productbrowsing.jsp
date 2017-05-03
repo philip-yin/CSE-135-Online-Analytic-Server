@@ -27,19 +27,15 @@
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery("SELECT * FROM category");
 			%>
-			<a href="productbrowsing.jsp">All Products<a><p>
-			<% while ( rs.next() ) { %>
-				<form method="GET" action="productbrowsing.jsp" >
-					<input type="hidden" name="category" value="<%=rs.getString("name")%>"/>
-					<input type="submit" style="border: none" value="<%=rs.getString("name")%>"> <p>
-				</form>
-			<% } %>
-			
-			<form method="GET" action="productbrowsing.jsp">
+			<form method="GET" action="productbrowsing.jsp" >
+				Filter by Category:<br>
+				<% while (rs.next() ) { %>
+					<input type="radio" name="category" value="<%=rs.getString("name")%>"><%=rs.getString("name")%><br>
+				<% } %>
+				<input type="radio" name="category" value="">All Products<p>
 				Search Product: <input type="text" size="20" name="item"/> <p>
 				<input type="submit" value="Search"/>
-			</form>
-			
+			</form>			
 			<%
 				session.setAttribute("category", category);
 				session.setAttribute("item", item);

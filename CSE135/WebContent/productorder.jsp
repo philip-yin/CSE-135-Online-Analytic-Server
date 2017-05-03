@@ -42,7 +42,7 @@
 			<%
 				// Create the statement
 				stmt = conn.createStatement();
-				rs = stmt.executeQuery("SELECT * FROM cart WHERE user_id=1");
+				rs = stmt.executeQuery("SELECT p.name product, c.amount amount, p.price price FROM cart c, product p WHERE user_id=1 AND p.sku=c.product_id");
 			%>
 
 			Current items in cart: <p>
@@ -50,15 +50,17 @@
 				<tr>
 					<th>Item</th>
 					<th>Amount</th>
+					<th>Price ea.<th>
 				</tr>
 				<%-- Iterate over the ResultSet --%>
 				<% while ( rs.next() ) { %>
 					<tr>
-						<td><%=rs.getString("product_id")%></td>
+						<td><%=rs.getString("product")%></td>
 						<td><%=rs.getInt("amount")%></td>
+						<td><%=rs.getInt("price")%></td>
 					</tr>
 				<% } %>
-			</table>
+			</table> <p>
 			<form method="GET" action="productorder.jsp">
 				Product: <%=order_item%> <p>
 				Enter Amount: <input type="text" size="20" name="item_num"/> <p>

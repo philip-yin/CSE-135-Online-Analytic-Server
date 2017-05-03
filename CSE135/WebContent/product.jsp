@@ -8,6 +8,12 @@
 			<%
 				String category = request.getParameter("category");
 				String item = request.getParameter("item");
+
+			%>
+						
+			<%
+				session.setAttribute("category", category);
+				session.setAttribute("item", item);
 			%>
 			<%
 				Connection conn;
@@ -38,23 +44,16 @@
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery("SELECT * FROM category");
 			%>
-			<a href="product.jsp">All Products<a><p>
-			<% while ( rs.next() ) { %>
-				<form method="GET" action="product.jsp" >
-					<input type="hidden" name="category" value="<%=rs.getString("name")%>"/>
-					<input type="submit" style="border: none" value="<%=rs.getString("name")%>"> <p>
-				</form>
-			<% } %>
-			
-			<form method="GET" action="product.jsp">
+			<form method="GET" action="product.jsp" >
+				Filter by Category:<br>
+				<% while (rs.next() ) { %>
+					<input type="radio" name="category" value="<%=rs.getString("name")%>"><%=rs.getString("name")%><br>
+				<% } %>
+				<input type="radio" name="category" value="">All Products<p>
 				Search Product: <input type="text" size="20" name="item"/> <p>
 				<input type="submit" value="Search"/>
 			</form>
 			
-			<%
-				session.setAttribute("category", category);
-				session.setAttribute("item", item);
-			%>
 			<%
 				if (category != "" && category != null && item != "" && item != null) {
 					rs = stmt.executeQuery("SELECT * FROM product WHERE cat='" + category + "' AND name LIKE '%" + item + "%'"); %>

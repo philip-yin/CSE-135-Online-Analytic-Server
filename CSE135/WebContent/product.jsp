@@ -20,6 +20,7 @@
 				Statement stmt;
 				ResultSet rs;
 				PreparedStatement pstmt;
+				ResultSet rscat;
 				try {
 					// Registering Postgresql JDBC driver
 					Class.forName("org.postgresql.Driver");
@@ -29,20 +30,51 @@
 					"user=postgres&password=cse135");
 			%>
 			<%
-				String add = request.getParameter("add");
-				if (add != null && add.equals("insert")) {
-					pstmt = conn.prepareStatement("INSERT INTO product VALUES (?, ?, ?, ?)");
-					pstmt.setString(1, request.getParameter("item_sku"));
-					pstmt.setString(2, request.getParameter("item_name"));
-					pstmt.setInt(3, Integer.parseInt(request.getParameter("item_price")));
-					pstmt.setString(4, request.getParameter("item_cat"));
-					pstmt.executeUpdate();
+				String action = request.getParameter("action");
+				if (action != null && action.equals("insert")) {
+					try {
+						pstmt = conn.prepareStatement("INSERT INTO product VALUES (?, ?, ?, ?)");
+						pstmt.setString(1, request.getParameter("item_sku"));
+						pstmt.setString(2, request.getParameter("item_name"));
+						pstmt.setInt(3, Integer.parseInt(request.getParameter("item_price")));
+						pstmt.setString(4, request.getParameter("item_cat"));
+						pstmt.executeUpdate();
+					}
+					catch (Exception e) { %>
+						<h1>Failure to insert new product.</h1>
+					<% }
 				}
+				if (action != null && action.equals("delete")) {
+					try {
+						pstmt = conn.prepareStatement("DELETE FROM product WHERE sku = ?");
+						pstmt.setString(1, request.getParameter("delete_sku"));
+						pstmt.executeUpdate();
+					}
+					catch (Exception e) { %>
+						<h1>Failure to delete product.</h1>
+					<% }					
+				}
+				if (action != null && action.equals("update")) {
+					try {
+						pstmt = conn.prepareStatement("UPDATE product SET sku = ?, name = ?, price = ?, cat = ? WHERE sku = ?");
+						pstmt.setString(1, request.getParameter("item_sku"));
+						pstmt.setString(2, request.getParameter("item_name"));
+						pstmt.setInt(3, Integer.parseInt(request.getParameter("item_price")));
+						pstmt.setString(4, request.getParameter("item_cat"));
+						pstmt.setString(5,	request.getParameter("update_sku"));
+						pstmt.executeUpdate();
+					}
+					catch (Exception e) { %>
+						<h1>Failure to update product.</h1>
+					<% }	
+				}
+
 			%>
 			<%
 				// Create the statement
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery("SELECT * FROM category");
+				rscat = conn.createStatement().executeQuery("SELECT name FROM category");
 			%>
 			<form method="GET" action="product.jsp" >
 				Filter by Category:<br>
@@ -79,23 +111,44 @@
 					<th>Category</th>
 				</tr>
 				<tr>
-					<form action="product.jsp" method=”POST">
-						<input type="hidden" name="add" value="insert"/>
-						<th><input value="" name="item_sku" size="15"/></th>
-						<th><input value="" name="item_name" size="15"/></th>
-						<th><input value="" name="item_price" size="15"/></th>
-						<th><input value="" name="item_cat" size="15"/></th>
-						<th><input type="submit" value="Insert"/></th>
+					<form action="product.jsp" method="POST">
+						<input type="hidden" name="action" value="insert"/>
+						<td><input value="" name="item_sku" /></td>
+						<td><input value="" name="item_name" /></td>
+						<td><input value="" name="item_price" /></td>
+						<td><select name="item_cat">
+							<% while (rscat.next() ) { %>
+								<option value="<%=rscat.getString("name")%>"><%=rscat.getString("name")%></option>
+							<% } %>
+						</select></td>
+						<td><input type="submit" value="Insert"/></td>
 					</form>
 				</tr>
 				<%-- Iterate over the ResultSet --%>
 				<% while ( rs.next() ) { %>
+					<% rscat = conn.createStatement().executeQuery("SELECT name FROM category"); %>
 					<tr>
-						<td><%=rs.getString("sku")%></td>
-						<td><%=rs.getString("name")%></td>
-						<td><%=rs.getInt("price")%></td>
-						<td><%=rs.getString("cat")%></td>
+						<form action="product.jsp" method="POST">
+							<input type="hidden" name="action" value="update"/>
+							<input type="hidden" name="update_sku" value="<%=rs.getString("sku")%>"/>
+							<td><input value="<%=rs.getString("sku")%>" name="item_sku"/></td>
+							<td><input value="<%=rs.getString("name")%>" name="item_name"/></td>
+							<td><input value="<%=rs.getInt("price")%>" name="item_price"/></td>
+							<td><select name="item_cat">
+								<% while (rscat.next() ) { %>
+									<option value="<%=rscat.getString("name")%>"><%=rscat.getString("name")%></option>
+								<% } %>
+							</select></td>
+							<td><input type="submit" value="Update"></td>
+						</form>
+						
+						<form action="product.jsp" method="POST">
+							<input type="hidden" name="action" value="delete"/>
+							<input type="hidden" value="<%=rs.getString("sku")%>" name="delete_sku"/>
+							<td><input type="submit" value="Delete"/></td>
+						</form>
 					</tr>
+
 				<% } %>
 			</table>
 			<%

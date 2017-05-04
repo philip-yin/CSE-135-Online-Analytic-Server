@@ -8,14 +8,10 @@
 			<%
 				String category = request.getParameter("category");
 				String item = request.getParameter("item");
-
-			%>
-						
-			<%
+				
 				session.setAttribute("category", category);
 				session.setAttribute("item", item);
-			%>
-			<%
+				
 				Connection conn;
 				Statement stmt;
 				ResultSet rs;
@@ -26,10 +22,9 @@
 					Class.forName("org.postgresql.Driver");
 					// Open a connection to the database
 					conn = DriverManager.getConnection(
-					"jdbc:postgresql://localhost/postgres?" +
-					"user=postgres&password=cse135");
-			%>
-			<%
+					"jdbc:postgresql://localhost:5432/CSE135_DB",
+					"postgres", "cse135");
+					
 				String action = request.getParameter("action");
 				if (action != null && action.equals("insert")) {
 					try {
@@ -69,8 +64,6 @@
 					<% }	
 				}
 
-			%>
-			<%
 				// Create the statement
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery("SELECT * FROM category");

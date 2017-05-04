@@ -48,16 +48,16 @@
 							<input type="hidden" name="login_name" value="<%=name %>"/>
 							<input type="submit" value="Categories" style="border: none; background-color: white; text-decoration:underline; cursor: pointer; color: blue;"/>
 						</form>
-	  					<form action="products.jsp">
+	  					<form action="product.jsp">
 							<input type="hidden" name="login_name" value="<%=name %>"/>
 							<input type="submit" value="Products" style="border: none; background-color: white; text-decoration:underline; cursor: pointer; color: blue;"/>
 	  					</form>
 	  					<%} %>
-	  					<form action="browsing.jsp">
+	  					<form action="productbrowsing.jsp">
 							<input type="hidden" name="login_name" value="<%=name %>"/>
 							<input type="submit" value="Products Browsing" style="border: none; background-color: white; text-decoration:underline; cursor: pointer; color: blue;"/>
 	  					</form>
-	  					<form action="order.jsp">
+	  					<form action="productorder.jsp">
 							<input type="hidden" name="login_name" value="<%=name %>"/>
 							<input type="submit" value="Product Order" style="border: none; background-color: white; text-decoration:underline; cursor: pointer; color: blue;"/>
 	  					</form>

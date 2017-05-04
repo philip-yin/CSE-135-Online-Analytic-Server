@@ -18,8 +18,8 @@
 					Class.forName("org.postgresql.Driver");
 					// Open a connection to the database
 					conn = DriverManager.getConnection(
-					"jdbc:postgresql://localhost/postgres?" +
-					"user=postgres&password=cse135");
+					"jdbc:postgresql://localhost:5432/CSE135_DB",
+					"postgres", "cse135");
 			%>
 			<%
 				// Create the statement

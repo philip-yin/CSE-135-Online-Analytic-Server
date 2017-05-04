@@ -46,7 +46,8 @@
 									<input type="hidden" name="login_name" value="<%=name %>"/>
 									<input type="submit" value="Back to home page" style="border: none; background-color: white; text-decoration:underline; cursor: pointer; color: blue;"/>
 								</form>
-								<hr>		
+								<hr>	
+
 							</header>
 							<%
 							String item_num = request.getParameter("item_num");
@@ -59,7 +60,7 @@
 								pstmt.setInt(1, (thing_id + 1));
 								pstmt.setInt(2, Integer.parseInt(item_num));
 								pstmt.setString(3, order_item);
-								pstmt.setInt(4, 1);
+								pstmt.setInt(4, user_id);
 								pstmt.executeUpdate();
 							}
 
@@ -94,6 +95,10 @@
 									<input type="hidden" name="login_name" value="<%=name %>"/>
 									<input type="submit" value="Return to browsing products" style="border: none; background-color: white; text-decoration:underline; cursor: pointer; color: blue;"/>
 							</form>
+							<form action="buycart.jsp">
+								<input type="hidden" name="login_name" value="<%=name %>"/>
+								<input type="submit" value="Proceed to checkout" style="border: none; background-color: white; text-decoration:underline; cursor: pointer; color: blue;"/>
+							<form>
 							<%
 							// Close the ResultSet
 							rs.close();

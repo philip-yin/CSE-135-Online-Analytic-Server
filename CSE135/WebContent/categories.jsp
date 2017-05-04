@@ -18,6 +18,8 @@
 			conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/CSE135_DB", "postgres","cse135");
 			Statement stmt = conn.createStatement();
 			ResultSet rs;
+			ResultSet rs2;
+			int numInCategory = 0;
 			if(name == ""){
 				%>
 				<p> Please provide your name. </p>
@@ -119,7 +121,11 @@
 							}
 						}
 						else if(action.equals("delete")){
-							if(!rs.next() || action_name == ""){
+							rs2 = conn.createStatement().executeQuery("SELECT COUNT(*) num FROM product WHERE cat='" + action_name + "'");
+							while (rs2.next() ) {
+								numInCategory = rs2.getInt("num");					
+							}
+							if(!rs.next() || action_name == "" || numInCategory > 0){
 								%>
 								<p style="color: red;"> Data modification failure </p>
 								<%
@@ -136,6 +142,10 @@
 					while(rs.next()){
 						String cat_name = rs.getString("name");
 						String cat_des = rs.getString("description");
+						rs2 = conn.createStatement().executeQuery("SELECT COUNT(*) num FROM product WHERE cat='" + cat_name + "'");
+						while (rs2.next() ) {
+							numInCategory = rs2.getInt("num");					
+						}
 						%>
 						<div>
 							<input type="text" class="update_names" value="<%=cat_name%>"/>
@@ -148,12 +158,14 @@
 								<input type="hidden" name="action" value="update"/>
 								<input type="submit" class="update" value="Update"/>
 							</form>
-							<form action="categories.jsp" style="display:inline;">
-								<input type="hidden" name="login_name" value="<%=name %>"/>
-								<input type="hidden" class="delete_name" name="cat_name" value=""/>
-								<input type="hidden" name="action" value="delete"/>
-								<input type="submit" class="delete" value="Delete"/>
-							</form>
+							<% if (numInCategory == 0) { %>
+								<form action="categories.jsp" style="display:inline;">
+									<input type="hidden" name="login_name" value="<%=name %>"/>
+									<input type="hidden" class="delete_name" name="cat_name" value=""/>
+									<input type="hidden" name="action" value="delete"/>
+									<input type="submit" class="delete" value="Delete"/>
+								</form>
+							<% } %>
 						</div>
 						<%
 					}

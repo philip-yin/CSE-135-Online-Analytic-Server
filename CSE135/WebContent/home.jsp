@@ -34,14 +34,10 @@
 					%>
 					<header>
 						<h3>Hello <%=name%></h3>
-						<%
-						if(role.equals("Customer")){
-						%>
 						<form action="buycart.jsp">
 							<input type="hidden" name="login_name" value="<%=name %>"/>
 							<input type="submit" value="Buy Shopping Cart" style="border: none; background-color: white; text-decoration:underline; cursor: pointer; color: blue;"/>
 	  					</form>
-	  					<% }%>
 						<br>
       					<h1>Home</h1>
       					<% 

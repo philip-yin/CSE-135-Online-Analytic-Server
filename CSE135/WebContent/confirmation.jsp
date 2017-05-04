@@ -61,7 +61,7 @@
 								pstmt.setInt(3, rs.getInt("amount"));
 								pstmt.setInt(4, rs.getInt("price"));
 								pstmt.setDate(5, java.sql.Date.valueOf(java.time.LocalDate.now()));
-								pstmt.setInt(6, 1);
+								pstmt.setInt(6, user_id);
 								pstmt.executeUpdate();
 							} 
 							 

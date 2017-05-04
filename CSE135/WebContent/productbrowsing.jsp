@@ -104,7 +104,11 @@
 										</td>
 									</tr>
 								<% } %>
-							</table>
+							</table><p>
+							<form action="buycart.jsp">
+								<input type="hidden" name="login_name" value="<%=name %>"/>
+								<input type="submit" value="Proceed to checkout" style="border: none; background-color: white; text-decoration:underline; cursor: pointer; color: blue;"/>
+							<form>
 							<%
 							// Close the ResultSet
 							rs.close();

@@ -69,7 +69,7 @@
 									pstmt.executeUpdate();
 								}
 								catch (Exception e) { %>
-									<h1>Failure to insert new product.</h1>
+									<p style="color: red;"> Failure to insert new product </p>
 								<% }
 							}
 							if (action != null && action.equals("delete")) {
@@ -79,7 +79,7 @@
 									pstmt.executeUpdate();
 								}
 								catch (Exception e) { %>
-									<h1>Failure to delete product.</h1>
+									<p style="color: red;"> Failure to delete product </p>
 								<% }					
 							}
 							if (action != null && action.equals("update")) {
@@ -93,7 +93,7 @@
 									pstmt.executeUpdate();
 								}
 								catch (Exception e) { %>
-									<h1>Failure to update product.</h1>
+									<p style="color: red;"> Failure to update product </p>
 								<% }	
 							}
 

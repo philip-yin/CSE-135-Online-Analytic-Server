@@ -57,14 +57,6 @@
 							<input type="hidden" name="login_name" value="<%=name %>"/>
 							<input type="submit" value="Products Browsing" style="border: none; background-color: white; text-decoration:underline; cursor: pointer; color: blue;"/>
 	  					</form>
-	  					<form action="productorder.jsp">
-							<input type="hidden" name="login_name" value="<%=name %>"/>
-							<input type="submit" value="Product Order" style="border: none; background-color: white; text-decoration:underline; cursor: pointer; color: blue;"/>
-	  					</form>
-					  	<form action="confirmation.jsp">
-							<input type="hidden" name="login_name" value="<%=name %>"/>
-							<input type="submit" value="Confirmation" style="border: none; background-color: white; text-decoration:underline; cursor: pointer; color: blue;"/>
-	  					</form>
       					<hr>
    					</header>
 					<p> all categories: <p>

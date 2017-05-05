@@ -13,6 +13,7 @@
 				Statement stmt;
 				ResultSet rs;
 				ResultSet rsname;
+				ResultSet rsItemName;
 				PreparedStatement pstmt;
 				int thing_id = 0;
 				try {
@@ -66,8 +67,13 @@
 
 
 							rs = stmt.executeQuery("SELECT p.name product, c.amount amount, p.price price FROM cart c, product p WHERE user_id=" + user_id + " AND p.sku=c.product_id");
+							rsItemName = conn.createStatement().executeQuery("SELECT name FROM product WHERE sku='" + order_item + "'");
+							String itemName = "";
+							while (rsItemName.next() ) {
+								itemName = rsItemName.getString("name");
+							}
 							%>
-				
+					
 							Current items in cart: <p>
 							<table>
 								<tr>
@@ -86,7 +92,7 @@
 							</table> <p>
 							<form method="GET" action="productorder.jsp">
 								<input type="hidden" name="login_name" value="<%=name %>"/>
-								Product: <%=order_item%> <p>
+								Product: <%=itemName%> <p>
 								Enter Amount: <input type="text" size="20" name="item_num"/> <p>
 								<input type="submit" value="Put in cart"/>
 								<input type="hidden" name="order_item" value="<%=order_item%>" />

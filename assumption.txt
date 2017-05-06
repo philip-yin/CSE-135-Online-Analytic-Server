@@ -1,0 +1,5 @@
+1. An owner can delete and/or update every category, regardless of whether she was the one who created the category.
+2. The shopping cart is persistent: when user close the web and open again, cart is still there.
+3. Assume that the same user does not engage in concurrent actions from two browsers.
+4. Assume that there is an infinite supply of all products. So, when a user orders n units of product x, assume that there are n units available.
+5. Search is case sensitive

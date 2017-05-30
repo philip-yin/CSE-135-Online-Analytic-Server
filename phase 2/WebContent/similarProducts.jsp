@@ -29,8 +29,10 @@
 				"from person p, product pr " +
 				"order by person_name) temp " +
 				"group by temp.person_name, temp.product_id) " +
-				"select (sum(x.dollar* y.dollar)/(sqrt(sum(x.dollar*x.dollar))*sqrt(sum(y.dollar*y.dollar)))) cosine_thing, " +
-					"x.product_id p1, y.product_id p2 " +
+				"select (sum(x.dollar* y.dollar)/ " +
+				"(case when (sqrt(sum(x.dollar*x.dollar))*sqrt(sum(y.dollar*y.dollar))) = 0 then CAST('1.79E+308' AS float) " +
+				"else (sqrt(sum(x.dollar*x.dollar))*sqrt(sum(y.dollar*y.dollar))) end )) cosine_thing, " +
+				"x.product_id p1, y.product_id p2 " +
 				"from test x, test y	where x.product_id < y.product_id and x.person_name = y.person_name " +
 				"group by p1, p2	order by cosine_thing desc, p1, p2 limit 100");
 			%>

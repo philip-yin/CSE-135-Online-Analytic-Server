@@ -45,8 +45,8 @@
 				String next_msg = "";
 			
 				Connection conn;
-				Statement stmt, stmt2, stmt3, stmt4;
-				ResultSet rs, rs2, rs3, rs4;
+				Statement stmt, stmt2, stmt3, stmt4, stmt5, stmt6;
+				ResultSet rs, rs2, rs3, rs4, rs5, rs6;
 				try {
 					// Registering Postgresql JDBC driver
 					Class.forName("org.postgresql.Driver");
@@ -57,6 +57,8 @@
 					stmt2 = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 					stmt3 = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 					stmt4 = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+					stmt5 = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+					stmt6 = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 					
 					rs4 = stmt4.executeQuery("select category_name, id from category");
 					if(filter == 1){
@@ -80,23 +82,40 @@
 							if(filter == 0){
 								rs3 = stmt3.executeQuery("select product_name, id, sum(total) as total from "+
 										"(select pr.product_name, pr.id, 0 as total from product pr union "+
-												"select pr.product_name, pr.id, sum(pc.quantity * pc.price) as total from "+
-												"product pr, products_in_cart pc, shopping_cart sc "+
-												"where sc.is_purchased = true and sc.id = pc.cart_id and pr.id = pc.product_id "+
-												"group by pr.product_name, pr.id) as temp "+
-												"group by product_name, id "+
-												"order by product_name limit 10 offset " + co);
+										"select pr.product_name, pr.id, sum(pc.quantity * pc.price) as total from "+
+										"product pr, products_in_cart pc, shopping_cart sc "+
+										"where sc.is_purchased = true and sc.id = pc.cart_id and pr.id = pc.product_id "+
+										"group by pr.product_name, pr.id) as temp "+
+										"group by product_name, id "+
+										"order by product_name limit 10 offset " + co);
+								rs5 = stmt5.executeQuery("select product_name, id, sum(total) as total from "+
+										"(select pr.product_name, pr.id, 0 as total from product pr union "+
+										"select pr.product_name, pr.id, sum(pc.quantity * pc.price) as total from "+
+										"product pr, products_in_cart pc, shopping_cart sc "+
+										"where sc.is_purchased = true and sc.id = pc.cart_id and pr.id = pc.product_id "+
+										"group by pr.product_name, pr.id) as temp "+
+										"group by product_name, id "+
+										"order by product_name");
 							}
 							else{
 								rs3 = stmt3.executeQuery("select product_name, id, sum(total) as total from "+
 										"(select pr.product_name, pr.id, pr.category_id, 0 as total from product pr union "+
-												"select pr.product_name, pr.id, pr.category_id, sum(pc.quantity * pc.price) as total from "+
-												"product pr, products_in_cart pc, shopping_cart sc "+
-												"where sc.is_purchased = true and sc.id = pc.cart_id and pr.id = pc.product_id "+
-												"group by pr.product_name, pr.id) as temp "+
-												"where category_id = " + cat_id + " " +
-												"group by product_name, id "+
-												"order by product_name limit 10 offset " + co);
+										"select pr.product_name, pr.id, pr.category_id, sum(pc.quantity * pc.price) as total from "+
+										"product pr, products_in_cart pc, shopping_cart sc "+
+										"where sc.is_purchased = true and sc.id = pc.cart_id and pr.id = pc.product_id "+
+										"group by pr.product_name, pr.id) as temp "+
+										"where category_id = " + cat_id + " " +
+										"group by product_name, id "+
+										"order by product_name limit 10 offset " + co);
+								rs5 = stmt5.executeQuery("select product_name, id, sum(total) as total from "+
+										"(select pr.product_name, pr.id, pr.category_id, 0 as total from product pr union "+
+										"select pr.product_name, pr.id, pr.category_id, sum(pc.quantity * pc.price) as total from "+
+										"product pr, products_in_cart pc, shopping_cart sc "+
+										"where sc.is_purchased = true and sc.id = pc.cart_id and pr.id = pc.product_id "+
+										"group by pr.product_name, pr.id) as temp "+
+										"where category_id = " + cat_id + " " +
+										"group by product_name, id "+
+										"order by product_name");
 							}
 							while(rs3.next()){
 								String str = rs3.getString("product_name");
@@ -116,6 +135,14 @@
 										"group by pr.product_name, pr.id) as temp "+
 										"group by product_name, id "+
 										"order by total desc limit 10 offset " + co);
+								rs5 = stmt5.executeQuery("select product_name, id, sum(total) as total from "+
+										"(select pr.product_name, pr.id, 0 as total from product pr union "+
+										"select pr.product_name, pr.id, sum(pc.quantity * pc.price) as total from "+
+										"product pr, products_in_cart pc, shopping_cart sc "+
+										"where sc.is_purchased = true and sc.id = pc.cart_id and pr.id = pc.product_id "+
+										"group by pr.product_name, pr.id) as temp "+
+										"group by product_name, id "+
+										"order by total desc");
 							}
 							else{
 								rs3 = stmt3.executeQuery("select product_name, id, sum(total) as total from "+
@@ -127,6 +154,15 @@
 										"where category_id = " + cat_id + " " +
 										"group by product_name, id "+
 										"order by total desc limit 10 offset " + co);
+								rs5 = stmt5.executeQuery("select product_name, id, sum(total) as total from "+
+										"(select pr.product_name, pr.id, pr.category_id, 0 as total from product pr union "+
+										"select pr.product_name, pr.id, pr.category_id, sum(pc.quantity * pc.price) as total from "+
+										"product pr, products_in_cart pc, shopping_cart sc "+
+										"where sc.is_purchased = true and sc.id = pc.cart_id and pr.id = pc.product_id "+
+										"group by pr.product_name, pr.id) as temp "+
+										"where category_id = " + cat_id + " " +
+										"group by product_name, id "+
+										"order by total desc");
 							}
 							while(rs3.next()){
 								String str = rs3.getString("product_name");
@@ -138,6 +174,7 @@
 						//order is other value
 						else{
 							rs3 = stmt3.executeQuery("select * from product where product_name <> product_name");
+							rs5 = stmt5.executeQuery("select * from product where product_name <> product_name");
 							%><b>Error! Invalid Order input.</b><%
 						}
 						%>
@@ -152,26 +189,46 @@
 								if(filter == 0){
 									rs = stmt.executeQuery("select person_name, id, sum(total) as total from "+
 											"(select p.person_name, p.id, sum(pc.quantity * pc.price) As total from "+
-													"person p, shopping_cart s, products_in_cart pc "+
-													"where s.person_id = p.id and pc.cart_id = s.id and s.is_purchased = true "+
-													"group by p.person_name, p.id union "+
-													"select p2.person_name, p2.id, 0 As total from person p2) As temp "+
-													"group by person_name, id "+
-													"order by person_name limit 20 offset " + ro);
+											"person p, shopping_cart s, products_in_cart pc "+
+											"where s.person_id = p.id and pc.cart_id = s.id and s.is_purchased = true "+
+											"group by p.person_name, p.id union "+
+											"select p2.person_name, p2.id, 0 As total from person p2) As temp "+
+											"group by person_name, id "+
+											"order by person_name limit 20 offset " + ro);
+									rs6 = stmt6.executeQuery("select person_name, id, sum(total) as total from "+
+											"(select p.person_name, p.id, sum(pc.quantity * pc.price) As total from "+
+											"person p, shopping_cart s, products_in_cart pc "+
+											"where s.person_id = p.id and pc.cart_id = s.id and s.is_purchased = true "+
+											"group by p.person_name, p.id union "+
+											"select p2.person_name, p2.id, 0 As total from person p2) As temp "+
+											"group by person_name, id "+
+											"order by person_name");
 								}
 								else{
 									rs = stmt.executeQuery("select person_name, id, sum(total) as total from "+
 											"(select person_name, id, sum(total) as total from "+
-													"(select p.person_name, p.id, pr.category_id, sum(pc.quantity * pc.price) As total from "+
-													"person p, shopping_cart s, products_in_cart pc, product pr "+
-													"where s.person_id = p.id and pc.cart_id = s.id and s.is_purchased = true and pc.product_id = pr.id "+
-													"group by p.person_name, p.id, pr.category_id union "+
-													"select p2.person_name, p2.id, 0 as category_id, 0 As total from person p2) As temp "+
-													"where category_id = " + cat_id + " "+
-													"group by person_name, id "+
-													"union select person_name, id, 0 as total from person) as temp2 "+
-													"group by person_name, id "+
-													"order by person_name limit 20 offset " + ro);
+											"(select p.person_name, p.id, pr.category_id, sum(pc.quantity * pc.price) As total from "+
+											"person p, shopping_cart s, products_in_cart pc, product pr "+
+											"where s.person_id = p.id and pc.cart_id = s.id and s.is_purchased = true and pc.product_id = pr.id "+
+											"group by p.person_name, p.id, pr.category_id union "+
+											"select p2.person_name, p2.id, 0 as category_id, 0 As total from person p2) As temp "+
+											"where category_id = " + cat_id + " "+
+											"group by person_name, id "+
+											"union select person_name, id, 0 as total from person) as temp2 "+
+											"group by person_name, id "+
+											"order by person_name limit 20 offset " + ro);
+									rs6 = stmt6.executeQuery("select person_name, id, sum(total) as total from "+
+											"(select person_name, id, sum(total) as total from "+
+											"(select p.person_name, p.id, pr.category_id, sum(pc.quantity * pc.price) As total from "+
+											"person p, shopping_cart s, products_in_cart pc, product pr "+
+											"where s.person_id = p.id and pc.cart_id = s.id and s.is_purchased = true and pc.product_id = pr.id "+
+											"group by p.person_name, p.id, pr.category_id union "+
+											"select p2.person_name, p2.id, 0 as category_id, 0 As total from person p2) As temp "+
+											"where category_id = " + cat_id + " "+
+											"group by person_name, id "+
+											"union select person_name, id, 0 as total from person) as temp2 "+
+											"group by person_name, id "+
+											"order by person_name");
 								}
 							}
 							//order is Top-K
@@ -179,32 +236,53 @@
 								if(filter == 0){
 									rs = stmt.executeQuery("select person_name, id, sum(total) as total from "+
 											"(select p.person_name, p.id, sum(pc.quantity * pc.price) As total from "+
-													"person p, shopping_cart s, products_in_cart pc "+
-													"where s.person_id = p.id and pc.cart_id = s.id and s.is_purchased = true "+
-													"group by p.person_name, p.id union "+
-													"select p2.person_name, p2.id, 0 As total from person p2) As temp "+
-													"group by person_name, id "+
-													"order by total desc limit 20 offset " + ro);
+											"person p, shopping_cart s, products_in_cart pc "+
+											"where s.person_id = p.id and pc.cart_id = s.id and s.is_purchased = true "+
+											"group by p.person_name, p.id union "+
+											"select p2.person_name, p2.id, 0 As total from person p2) As temp "+
+											"group by person_name, id "+
+											"order by total desc limit 20 offset " + ro);
+									rs6 = stmt6.executeQuery("select person_name, id, sum(total) as total from "+
+											"(select p.person_name, p.id, sum(pc.quantity * pc.price) As total from "+
+											"person p, shopping_cart s, products_in_cart pc "+
+											"where s.person_id = p.id and pc.cart_id = s.id and s.is_purchased = true "+
+											"group by p.person_name, p.id union "+
+											"select p2.person_name, p2.id, 0 As total from person p2) As temp "+
+											"group by person_name, id "+
+											"order by total desc");
 								}
 								else{
 									rs = stmt.executeQuery("select person_name, id, sum(total) as total from "+
 											"(select person_name, id, sum(total) as total from "+
-													"(select p.person_name, p.id, pr.category_id, sum(pc.quantity * pc.price) As total from "+
-													"person p, shopping_cart s, products_in_cart pc, product pr "+
-													"where s.person_id = p.id and pc.cart_id = s.id and s.is_purchased = true and pc.product_id = pr.id "+
-													"group by p.person_name, p.id, pr.category_id union "+
-													"select p2.person_name, p2.id, 0 as category_id, 0 As total from person p2) As temp "+
-													"where category_id = " + cat_id + " "+
-													"group by person_name, id "+
-													"union select person_name, id, 0 as total from person) as temp2 "+
-													"group by person_name, id "+
-													"order by total desc limit 20 offset " + ro);
+											"(select p.person_name, p.id, pr.category_id, sum(pc.quantity * pc.price) As total from "+
+											"person p, shopping_cart s, products_in_cart pc, product pr "+
+											"where s.person_id = p.id and pc.cart_id = s.id and s.is_purchased = true and pc.product_id = pr.id "+
+											"group by p.person_name, p.id, pr.category_id union "+
+											"select p2.person_name, p2.id, 0 as category_id, 0 As total from person p2) As temp "+
+											"where category_id = " + cat_id + " "+
+											"group by person_name, id "+
+											"union select person_name, id, 0 as total from person) as temp2 "+
+											"group by person_name, id "+
+											"order by total desc limit 20 offset " + ro);
+									rs6 = stmt6.executeQuery("select person_name, id, sum(total) as total from "+
+											"(select person_name, id, sum(total) as total from "+
+											"(select p.person_name, p.id, pr.category_id, sum(pc.quantity * pc.price) As total from "+
+											"person p, shopping_cart s, products_in_cart pc, product pr "+
+											"where s.person_id = p.id and pc.cart_id = s.id and s.is_purchased = true and pc.product_id = pr.id "+
+											"group by p.person_name, p.id, pr.category_id union "+
+											"select p2.person_name, p2.id, 0 as category_id, 0 As total from person p2) As temp "+
+											"where category_id = " + cat_id + " "+
+											"group by person_name, id "+
+											"union select person_name, id, 0 as total from person) as temp2 "+
+											"group by person_name, id "+
+											"order by total desc");
 								}
 							}
 							//order is other value
 							else{
 								//select nothing
-								rs =stmt.executeQuery("select * from person where person_name <> person_name");
+								rs = stmt.executeQuery("select * from person where person_name <> person_name");
+								rs6 = stmt6.executeQuery("select * from person where person_name <> person_name");
 								%><b>Error! Invalid Order input.</b><%
 							}
 							while (rs.next() ) {
@@ -252,26 +330,46 @@
 								if(filter == 0){
 									rs = stmt.executeQuery("select state_name, id, sum(total) As total from " +
 											"(select s.state_name, s.id, sum(pc.quantity * pc.price) As total from "+
-													"state s, person p, shopping_cart sc, products_in_cart pc "+
-													"where s.id = p.state_id and sc.person_id = p.id and pc.cart_id = sc.id and sc.is_purchased = true "+
-													"group by s.state_name, s.id union "+
-													"select s2.state_name, s2.id, 0 As total from state s2) As temp "+
-													"group by state_name, id "+
-													"order by state_name limit 20 offset " + ro);
+											"state s, person p, shopping_cart sc, products_in_cart pc "+
+											"where s.id = p.state_id and sc.person_id = p.id and pc.cart_id = sc.id and sc.is_purchased = true "+
+											"group by s.state_name, s.id union "+
+											"select s2.state_name, s2.id, 0 As total from state s2) As temp "+
+											"group by state_name, id "+
+											"order by state_name limit 20 offset " + ro);
+									rs6 = stmt6.executeQuery("select state_name, id, sum(total) As total from " +
+											"(select s.state_name, s.id, sum(pc.quantity * pc.price) As total from "+
+											"state s, person p, shopping_cart sc, products_in_cart pc "+
+											"where s.id = p.state_id and sc.person_id = p.id and pc.cart_id = sc.id and sc.is_purchased = true "+
+											"group by s.state_name, s.id union "+
+											"select s2.state_name, s2.id, 0 As total from state s2) As temp "+
+											"group by state_name, id "+
+											"order by state_name");
 								}
 								else{
 									rs = stmt.executeQuery("select state_name, id, sum(total) as total from "+
 											"(select state_name, id, sum(total) As total from "+
-													"(select s.state_name, s.id, pr.category_id, sum(pc.quantity * pc.price) As total from "+
-													"state s, person p, shopping_cart sc, products_in_cart pc, product pr "+
-													"where s.id = p.state_id and sc.person_id = p.id and pc.cart_id = sc.id and sc.is_purchased = true and pc.product_id = pr.id "+
-													"group by s.state_name, s.id, pr.category_id union "+
-													"select s2.state_name, s2.id, 0 as category_id, 0 As total from state s2) As temp "+
-													"where category_id = " + cat_id + " " +
-													"group by state_name, id "+
-													"union select state_name, id, 0 as total from state) as temp2 "+
-													"group by state_name, id "+
-													"order by state_name limit 20 offset " + ro);
+											"(select s.state_name, s.id, pr.category_id, sum(pc.quantity * pc.price) As total from "+
+											"state s, person p, shopping_cart sc, products_in_cart pc, product pr "+
+											"where s.id = p.state_id and sc.person_id = p.id and pc.cart_id = sc.id and sc.is_purchased = true and pc.product_id = pr.id "+
+											"group by s.state_name, s.id, pr.category_id union "+
+											"select s2.state_name, s2.id, 0 as category_id, 0 As total from state s2) As temp "+
+											"where category_id = " + cat_id + " " +
+											"group by state_name, id "+
+											"union select state_name, id, 0 as total from state) as temp2 "+
+											"group by state_name, id "+
+											"order by state_name limit 20 offset " + ro);
+									rs6 = stmt6.executeQuery("select state_name, id, sum(total) as total from "+
+											"(select state_name, id, sum(total) As total from "+
+											"(select s.state_name, s.id, pr.category_id, sum(pc.quantity * pc.price) As total from "+
+											"state s, person p, shopping_cart sc, products_in_cart pc, product pr "+
+											"where s.id = p.state_id and sc.person_id = p.id and pc.cart_id = sc.id and sc.is_purchased = true and pc.product_id = pr.id "+
+											"group by s.state_name, s.id, pr.category_id union "+
+											"select s2.state_name, s2.id, 0 as category_id, 0 As total from state s2) As temp "+
+											"where category_id = " + cat_id + " " +
+											"group by state_name, id "+
+											"union select state_name, id, 0 as total from state) as temp2 "+
+											"group by state_name, id "+
+											"order by state_name");
 								}
 							}
 							//order is Top-K
@@ -279,32 +377,53 @@
 								if(filter == 0){
 									rs = stmt.executeQuery("select state_name, id, sum(total) As total from "+
 											"(select s.state_name, s.id, sum(pc.quantity * pc.price) As total from "+
-													"state s, person p, shopping_cart sc, products_in_cart pc "+
-													"where s.id = p.state_id and sc.person_id = p.id and pc.cart_id = sc.id and sc.is_purchased = true "+
-													"group by s.state_name, s.id union "+
-													"select s2.state_name, s2.id, 0 As total from state s2) As temp "+
-													"group by state_name, id "+
-													"order by total desc limit 20 offset " + ro);
+											"state s, person p, shopping_cart sc, products_in_cart pc "+
+											"where s.id = p.state_id and sc.person_id = p.id and pc.cart_id = sc.id and sc.is_purchased = true "+
+											"group by s.state_name, s.id union "+
+											"select s2.state_name, s2.id, 0 As total from state s2) As temp "+
+											"group by state_name, id "+
+											"order by total desc limit 20 offset " + ro);
+									rs6 = stmt6.executeQuery("select state_name, id, sum(total) As total from "+
+											"(select s.state_name, s.id, sum(pc.quantity * pc.price) As total from "+
+											"state s, person p, shopping_cart sc, products_in_cart pc "+
+											"where s.id = p.state_id and sc.person_id = p.id and pc.cart_id = sc.id and sc.is_purchased = true "+
+											"group by s.state_name, s.id union "+
+											"select s2.state_name, s2.id, 0 As total from state s2) As temp "+
+											"group by state_name, id "+
+											"order by total desc");
 								}
 								else{
 									rs = stmt.executeQuery("select state_name, id, sum(total) as total from "+
 											"(select state_name, id, sum(total) As total from "+
-													"(select s.state_name, s.id, pr.category_id, sum(pc.quantity * pc.price) As total from "+
-													"state s, person p, shopping_cart sc, products_in_cart pc, product pr "+
-													"where s.id = p.state_id and sc.person_id = p.id and pc.cart_id = sc.id and sc.is_purchased = true and pc.product_id = pr.id "+
-													"group by s.state_name, s.id, pr.category_id union "+
-													"select s2.state_name, s2.id, 0 as category_id, 0 As total from state s2) As temp "+
-													"where category_id = " + cat_id + " " +
-													"group by state_name, id "+
-													"union select state_name, id, 0 as total from state) as temp2 "+
-													"group by state_name, id "+
-													"order by total desc limit 20 offset " + ro);
+											"(select s.state_name, s.id, pr.category_id, sum(pc.quantity * pc.price) As total from "+
+											"state s, person p, shopping_cart sc, products_in_cart pc, product pr "+
+											"where s.id = p.state_id and sc.person_id = p.id and pc.cart_id = sc.id and sc.is_purchased = true and pc.product_id = pr.id "+
+											"group by s.state_name, s.id, pr.category_id union "+
+											"select s2.state_name, s2.id, 0 as category_id, 0 As total from state s2) As temp "+
+											"where category_id = " + cat_id + " " +
+											"group by state_name, id "+
+											"union select state_name, id, 0 as total from state) as temp2 "+
+											"group by state_name, id "+
+											"order by total desc limit 20 offset " + ro);
+									rs6 = stmt6.executeQuery("select state_name, id, sum(total) as total from "+
+											"(select state_name, id, sum(total) As total from "+
+											"(select s.state_name, s.id, pr.category_id, sum(pc.quantity * pc.price) As total from "+
+											"state s, person p, shopping_cart sc, products_in_cart pc, product pr "+
+											"where s.id = p.state_id and sc.person_id = p.id and pc.cart_id = sc.id and sc.is_purchased = true and pc.product_id = pr.id "+
+											"group by s.state_name, s.id, pr.category_id union "+
+											"select s2.state_name, s2.id, 0 as category_id, 0 As total from state s2) As temp "+
+											"where category_id = " + cat_id + " " +
+											"group by state_name, id "+
+											"union select state_name, id, 0 as total from state) as temp2 "+
+											"group by state_name, id "+
+											"order by total desc");
 								}
 							}
 							
 							//order is other value
 							else{
-								rs =stmt.executeQuery("select * from state where state_name <> state_name");
+								rs = stmt.executeQuery("select * from state where state_name <> state_name");
+								rs6 = stmt6.executeQuery("select * from state where state_name <> state_name");
 								%><b>Error! Invalid Order input.</b><%
 							}
 							while (rs.next()) {
@@ -347,7 +466,8 @@
 						}
 						//rows have other value
 						else{
-							rs =stmt.executeQuery("select * from state where state_name <> state_name");
+							rs = stmt.executeQuery("select * from state where state_name <> state_name");
+							rs6 = stmt6.executeQuery("select * from state where state_name <> state_name");
 							%><b>Error! Invalid Order input.</b><%
 							%><b>Error! Invalid Rows input.</b><%
 						}
@@ -424,20 +544,20 @@
 							<input type="submit" value="Run Query"/>
 						</form>
 						<%
-					}%>
+					}
+					%>
 					<br>
 					<br>
 					<%
-						rs.last();
-						rs3.last();
-						int lastrow = rs.getRow();
-						int lastcol = rs3.getRow();
+					rs5.last();
+					rs6.last();
+					int lastcol = rs5.getRow();
+					int lastrow = rs6.getRow();
 					%>
 					
 					<%
-					if(lastrow == 20){
+					if(lastrow > ro+20){
 						%>
-						
 						<form action="analytics.jsp" method="GET">
 							<%if(rows == null){
 								%>
@@ -481,7 +601,7 @@
 					%>
 					<br>
 					<%
-					if(lastcol == 10){
+					if(lastcol > co+10){
 						%>
 						<form action="analytics.jsp" method="GET">
 							<%if(rows == null){

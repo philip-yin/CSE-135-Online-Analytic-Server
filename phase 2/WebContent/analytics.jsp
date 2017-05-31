@@ -12,7 +12,11 @@
 		<td>
 			<%-- Import the java.sql package --%>
 			<%@ page import="java.sql.*" %>
-			<%	
+			<%
+			if(session.getAttribute("roleName") != null) {
+				String role = session.getAttribute("roleName").toString();
+				if("owner".equalsIgnoreCase(role) == true){
+			
 				//setting variables
 			
 				String rows = request.getParameter("rows");
@@ -775,7 +779,16 @@
 				} catch (SQLException e) {
 					%><%= e %><%
 				}
-			%>
+	
+				} 
+				else { %>
+					<h3>This page is available to owners only</h3>
+				<%
+				}
+			}
+			else { %>
+					<h3>Please <a href = "./login.jsp">login</a> before viewing the page</h3>
+			<%} %>
 		</td>
 	</tr></table>
 </body>

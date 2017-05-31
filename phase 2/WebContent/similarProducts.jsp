@@ -9,7 +9,10 @@
 <body>
 	<%-- Import the java.sql package --%>
 	<%@ page import="java.sql.*" %>
-	<%	Connection conn;
+	<%
+	if(session.getAttribute("roleName") != null) {
+	
+		Connection conn;
 		Statement stmt;
 		ResultSet rs;
 		try {
@@ -66,6 +69,11 @@
 			//conn.close();
 		} catch (SQLException e) {
 			%><%= e %><%
-		}%>
+		}
+		
+	}
+	else { %>
+		<h3>Please <a href = "./login.jsp">login</a> before viewing the page</h3>
+	<%} %>
 </body>
 </html>
